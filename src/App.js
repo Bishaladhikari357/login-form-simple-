@@ -1,24 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import RegistrationForm from './components/RegistrationForm/RegistrationForm.js';
+import LoginForm from './components/LoginForm';
+import './index.css';
+import Navbar from './components/Navbar/Navbar';
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(false);
+
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  };
+
+  const handleRegister = () => {
+    setIsRegistered(true);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <>
+    
+    <div className={`container ${isLoggedIn ? 'full-screen' : ''}`}>
+      {!isLoggedIn ? (
+        isRegistered ? (
+          <LoginForm onLogin={handleLogin} />
+        ) : (
+          <RegistrationForm onRegister={handleRegister} />
+        )
+      ) : (
+        <Navbar/>
+      )}
     </div>
+    </>
   );
 }
 
